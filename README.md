@@ -45,4 +45,15 @@
 * Update t = t_1 (Fast-forward to time of next event).
 * Update the amount paid upon delivery by the shopkeeper: *C = C + c(y)*.
 * Update SS: Update *x=x+y*, Reset *y=0,t_1=∞*.
+
+## Parameters and Specifications in the Code
+* *r = 2* dollars, the cost the shopkeeper charges a customer for each item. 
+* *h = 0.25* dollars, the holding cost per unit item per unit time (day).
+* *λ = 2.5*, the rate of customers arriving to the shop (per day).
+* *L = 3*, the number of days for an order to arrive to the shop.
+* Initialize stock *x=S* at *t=0*.
+* The demand of a customer *D*, is a random variable given by *D = X + 1*, where X ∼ Bin(10, 0.8).
+* For the shopkeeper, the cost price of each item is $1.
+* We also add a counter to keep the track of the unmet demand from the customers over the 100 days
+
      
