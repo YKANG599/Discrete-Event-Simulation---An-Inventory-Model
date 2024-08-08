@@ -19,9 +19,30 @@
  * EL: The event times will be denoted as *t_0* for the next customer and *t_1* forthe time at which the order being filled will be delivered.
 
  ## Initialisation
- * Set *t = 0*
- * Set *SS = (x,0)*
+ * Set *t = 0*.
+ * Set *SS = (x,0)*.
  * Set the revenue, holding cost and price paid to be *R = 0,H = 0,C = 0*.
  * Generate *X* from a Poisson process with rate *λ*. This will be the time of the first customer arrival.
  * Set *EL = (X,∞)*.
  At the end of the simulation, R is the revenue earned up to time T. The profit earned will be R −H −C.
+
+## Updating of System
+
+### Case 1 : *t_0 < t_1* (Next event is a new customer arrival)
+
+* Update *H = H + (t_0 − t)xh* to incorporate the holding cost.
+* Update *t = t_0* (Fast-forward to time of next event).
+* Generate D ∼ G, the demand of this new customer that just arrived at *t_0*.
+* Let *w = min(D , x)*. This is the amount of the customer order that the shopkeeper can fulfil. In the SS, update the inventory amount *x = x − w*.
+* Update the revenue earned *R = R + wr*.
+* If *x<s* and *y=0* then update:
+  The amount on order *y=S−x*
+  The time at which the order will be fulfilled in the SS: *t_1 = t + L*.
+* Generate U∼Unif[0,1] and update *t_0* in the SS: *t_0 = t−(λ/1)log(U)*
+
+### Case 2 : *t_0 ≥ t_1* (Next event is an order arriving to the shopkeeper)
+* Update *H = H + (t_1 − t)xh* to incorporate the holding cost.
+* Update t = t_1 (Fast-forward to time of next event).
+* Update the amount paid upon delivery by the shopkeeper: *C = C + c(y)*.
+* Update SS: Update *x=x+y*, Reset *y=0,t_1=∞*.
+     
